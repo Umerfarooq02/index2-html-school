@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .editable {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Student Information</h2>
+    <form id="studentForm">
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Student Name</td>
+                <td contenteditable="true" class="editable" id="studentName">Rehan</td>
+            </tr>
+            <tr>
+                <td>Course</td>
+                <td contenteditable="true" class="editable" id="courseName">Name of the Course</td>
+            </tr>
+            <tr>
+                <td>Workload</td>
+                <td contenteditable="true" class="editable" id="workload">Brief description of workload</td>
+            </tr>
+            <tr>
+                <td>Class</td>
+                <td contenteditable="true" class="editable" id="class">10th</td>
+            </tr>
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById("studentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            
+            // Get updated values
+            var studentName = document.getElementById("studentName").innerText;
+            var courseName = document.getElementById("courseName").innerText;
+            var workload = document.getElementById("workload").innerText;
+            var studentClass = document.getElementById("class").innerText;
+
+            // Construct the text content
+            var textContent = "Student Name: " + studentName + "\n" +
+                              "Course: " + courseName + "\n" +
+                              "Workload: " + workload + "\n" +
+                              "Class: " + studentClass;
+
+            // Create a blob with the text content
+            var blob = new Blob([textContent], { type: "text/plain" });
+
+            // Create a link element to download the text file
+            var link = document.createElement("a");
+            link.download = "student_information.txt";
+            link.href = window.URL.createObjectURL(blob);
+            link.click();
+        });
+    </script>
+</body>
+</html>
